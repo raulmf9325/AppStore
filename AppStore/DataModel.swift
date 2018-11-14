@@ -12,7 +12,7 @@ class Category: Decodable{
     var name: String?
     var apps: [App]?
     
-    static func fetchFeaturedApps(completionHandler: @escaping ([Category]) -> ()){
+    static func fetchFeaturedApps(completionHandler: @escaping ([Category], BannerCategory) -> ()){
         let jsonUrlString = "https://api.letsbuildthatapp.com/appstore/featured"
         guard let url = URL(string: jsonUrlString) else {return}
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -24,13 +24,14 @@ class Category: Decodable{
                 let featuredWebsite = try JSONDecoder().decode(FeaturedWebsite.self, from: data)
                 
                 guard let categories = featuredWebsite.categories else {return}
+                guard let bannerCategory = featuredWebsite.bannerCategory else {return}
                 
                 /*  1- We use a completion handler because the lines of code that are passed as parameter: reload data and update categories
                        should execute only when finished downloading from the internet
                     2- We execute the completion handler asynchronously because updating the UI can only occur in the main thread
                  */
                 DispatchQueue.main.async(execute: {
-                    completionHandler(categories)
+                    completionHandler(categories, bannerCategory)
                 })
                 
             } catch let jsonError{
@@ -56,7 +57,7 @@ struct FeaturedWebsite: Decodable{
 }
 
 struct BannerCategory: Decodable{
-    var apps: [Apps]?
+    var apps: [App]?
 }
 
 struct Apps: Decodable{

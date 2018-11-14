@@ -21,10 +21,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        let featuredAppsController = FeaturedAppsController(collectionViewLayout: layout)
         
-        let navigationController = UINavigationController(rootViewController: featuredAppsController)
-        window?.rootViewController = navigationController
+        // Tab Items
+        let featuredAppsController = FeaturedAppsController(collectionViewLayout: layout)
+        featuredAppsController.title = "Featured"
+        featuredAppsController.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarItem.SystemItem.featured, tag: 0)
+        
+        let chartAppsController = FeaturedAppsController(collectionViewLayout: layout)
+        chartAppsController.title = "Top Charts"
+        chartAppsController.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarItem.SystemItem.mostViewed, tag: 1)
+        
+        let exploreAppsController = FeaturedAppsController(collectionViewLayout: layout)
+        exploreAppsController.title = "Explore"
+        exploreAppsController.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarItem.SystemItem.bookmarks, tag: 2)
+        
+        let searchAppsController = FeaturedAppsController(collectionViewLayout: layout)
+        searchAppsController.title = "Search"
+        searchAppsController.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarItem.SystemItem.search, tag: 3)
+        
+        let updatesAppsController = FeaturedAppsController(collectionViewLayout: layout)
+        updatesAppsController.title = "Updates"
+        updatesAppsController.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarItem.SystemItem.downloads, tag: 4)
+        
+        
+        let controllers = [featuredAppsController, chartAppsController, exploreAppsController, searchAppsController, updatesAppsController]
+        
+        let tabBarController = UITabBarController()
+        
+        tabBarController.viewControllers = controllers.map{UINavigationController(rootViewController: $0)}
+    
+       // let navigationController = UINavigationController(rootViewController: featuredAppsController)
+
+        window?.rootViewController = tabBarController
+        
         
         return true
     }

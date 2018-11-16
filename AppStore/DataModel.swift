@@ -43,11 +43,14 @@ class Category: Decodable{
 }
 
 class App: Decodable{
-    var Id: CGFloat?
+    var Id: Int?
     var Name: String?
     var Category: String?
     var ImageName: String?
     var Price: CGFloat?
+    var Screenshots: [String]?
+    var description: String?
+    var appInformation: [AppInfo]?
 }
 
 
@@ -62,4 +65,9 @@ struct BannerCategory: Decodable{
 
 struct Apps: Decodable{
     var ImageName: String?
+}
+
+struct AppInfo: Decodable{
+    var Name: String?
+    var Value: String?
 }

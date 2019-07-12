@@ -4,3 +4,5 @@ The app features horizontal scrolling. A multi-tab main view. The content is fet
 Based on the tutorial by Brian Voong. Follow him on youtube --> https://www.youtube.com/channel/UCuP2vJ6kRutQBfRmdcI92mA
 
 ## Demo
+
+![](AppStore.gif)
